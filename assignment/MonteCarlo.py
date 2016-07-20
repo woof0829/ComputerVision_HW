@@ -18,8 +18,10 @@ def montecarlo(steps):
             asix_x.append(angle[number])
             asix_y.append(randomnumber[number])
     figure = plt.plot(asix_x, asix_y)
-    plt.show(figure)
     plt.title('MonteCarloIntegration')
+    plt.xlabel('angle')
+    plt.ylabel('Cos')
+    plt.show(figure)
 
 if __name__ == '__main__':
-    montecarlo(50100)
+    montecarlo(40000)
