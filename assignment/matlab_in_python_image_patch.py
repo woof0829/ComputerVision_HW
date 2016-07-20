@@ -1,7 +1,8 @@
+import cv2
 import PIL
 import math
 import numpy as np
-import scipy as sp
+import scipy.ndimage, scipy.misc
 import matplotlib.pyplot as plt
 from Random_angle import GetAngle
 
@@ -12,10 +13,10 @@ def imagepatchgenerate(ih, il, angle, location):
     imagearray[:, 200] = (il+ih)/2
     imagetemp = imagearray
     standard_minus = np.std(imagetemp)
-    print standard_minus
     d = GetAngle()
     gaussianfilter=d.gaussian_2d((3, 3), standard_minus)
-    print gaussianfilter
-    b = plt.imshow(imagetemp)
-    plt.show(b)
-imagepatchgenerate(3, 1, math.pi/2, 2)
+    c = scipy.ndimage.filters.correlate(gaussianfilter, imagetemp)
+    b = scipy.misc.imrotate(gaussianfilter, angle, interp="bicubic")
+    e = plt.imshow(imagetemp)
+    plt.show(e)
+imagepatchgenerate(100, 1, 2*math.pi, 2)
