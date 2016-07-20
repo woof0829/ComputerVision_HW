@@ -11,19 +11,15 @@ def montecarlo(steps):
     asix_y = []
     # initialize a list to store asix value
     randomnumber = np.random.random((steps,))
-    angle = math.pi / 2 * randomnumber
+    angle = math.pi / 2 * np.random.random((steps,))
     for number in range(steps):
         if randomnumber[number] <= math.cos(angle[number]):
             counter += 1
-            asix1 = angle[number]
-            asix_x[counter] = asix1
-            asix2 = randomnumber[number]
-            asix_y[counter] = asix2
-    region = math.pi / 2 * counter * steps
+            asix_x.append(angle[number])
+            asix_y.append(randomnumber[number])
     figure = plt.plot(asix_x, asix_y)
     plt.show(figure)
-    print region
-
+    plt.title('MonteCarloIntegration')
 
 if __name__ == '__main__':
-    montecarlo(2)
+    montecarlo(50100)
