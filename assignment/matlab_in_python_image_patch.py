@@ -17,11 +17,11 @@ def imagepatchgenerate(ih, il, angle, location):
     standard_minus = np.std(imagetemp, ddof=1)
     d = GetAngle()
     gaussianfilter=d.gaussian_2d((3, 3), standard_minus)
-
-    e = plt.imshow(gaussianfilter[:,:], cmap=plt.cm.gray)
-    # mtl.imshow(gaussianfilter)
-    plt.show(e)
-    # print gaussianfilter
+    image = mtl.imfilter(imagearray, gaussianfilter, 'replicate')
+    rotatedimage = mtl.imrotate(image, angle, 'bicubic', 'crop')
+    # e = plt.imshow(gaussianfilter, cmap=plt.cm.gray, norm=plt.Normalize(vmin=0, vmax=100))
+    f = plt.imshow(rotatedimage)
+    plt.show(f)
 
 if __name__ == '__main__':
-    imagepatchgenerate(3, 1, 2*math.pi, 2)
+    imagepatchgenerate(3, 1, math.pi/6, 2)
