@@ -1,4 +1,3 @@
-import PIL
 import math
 import numpy as np
 import matplotlib.pyplot as plt
@@ -16,12 +15,16 @@ def imagepatchgenerate(ih, il, angle, location):
     imagetemp.shape = (121, 1)
     standard_minus = np.std(imagetemp, ddof=1)
     d = GetAngle()
-    gaussianfilter=d.gaussian_2d((3, 3), standard_minus)
+    gaussianfilter = d.gaussian_2d((3, 3), standard_minus)
     image = mtl.imfilter(imagearray, gaussianfilter, 'replicate')
     rotatedimage = mtl.imrotate(image, angle, 'bicubic', 'crop')
-    # e = plt.imshow(gaussianfilter, cmap=plt.cm.gray, norm=plt.Normalize(vmin=0, vmax=100))
-    f = plt.imshow(rotatedimage)
-    plt.show(f)
-
+    localx = location*math.cos(angle)
+    localy = location*math.sin(angle)
+    translatedimage = mtl.imtranslate(rotatedimage, [[localx, localy]])
+    print translatedimage
+    # mtl.imshow(translatedimage)
+    # e = plt.imshow(translatedimage, cmap=plt.cm.gray)
+    # plt.show(e)
+    # mtl.imshow(imagearray)
 if __name__ == '__main__':
-    imagepatchgenerate(3, 1, math.pi/6, 2)
+    imagepatchgenerate(3, 1, math.pi/3, 3)
