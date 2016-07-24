@@ -20,10 +20,10 @@ def imagepatchgenerate(ih, il, angle, location):
     rotatedimage = mtl.imrotate(image, angle, 'bicubic', 'crop')
     localx = location*math.cos(angle)
     localy = location*math.sin(angle)
-    translatedimage = mtl.imtranslate(imagearray, [[localx, localy]])
-    croppedimage = translatedimage[:, :]
-    print croppedimage
-
+    translatedimage = mtl.imtranslate(rotatedimage, [[localx, localy]])
+    croppedimage = translatedimage[93:108, 93:108]
+    gaussiannoise = np.random.normal(loc=0.0, scale=2.0, size=(15, 15))
+    image = croppedimage+gaussiannoise
     # e = plt.imshow(translatedimage, cmap=plt.cm.gray)
     # plt.show(e)
 if __name__ == '__main__':
