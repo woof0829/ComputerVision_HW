@@ -1,7 +1,7 @@
 # Image patch generate
 import math
 import numpy as np
-import matplotlib.pyplot as mpl
+
 
 
 class ImageRelated(object):
@@ -21,14 +21,14 @@ class ImageRelated(object):
         a method of 2D gaussian mask
 
         """
-        m, n = [(ss - 1.) / 2. for ss in shape]
-        y, x = np.ogrid[-m:m + 1, -n:n + 1]
-        h = np.exp(-(x * x + y * y) / (2. * sigma * sigma))
-        h[h < np.finfo(h.dtype).eps * h.max()] = 0
-        sumh = h.sum()
-        if sumh != 0:
-            h /= sumh
-        return h
+        i, j = [(ss - 1.) / 2. for ss in shape]
+        k, l = np.ogrid[-i:i + 1, -j:j + 1]
+        value = np.exp(-(l * l + k * k) / (2. * sigma * sigma))
+        value[value < np.finfo(value.dtype).eps * value.max()] = 0
+        sumvalue = value.sum()
+        if sumvalue != 0:
+            value /= sumvalue
+        return value
 
     @staticmethod
     def empty_matrix(x=0):
@@ -58,7 +58,7 @@ class ImageRelated(object):
     @staticmethod
     def set_value(length=0, width=0, angle=math.pi, location=0, H=0, L=0):
         """
-        set value for image matrix 
+        set value for image matrix
 
         """
         matrix = np.zeros((length, width))
@@ -105,4 +105,3 @@ class ImageRelated(object):
 
 if __name__ == '__main__':
     a = ImageRelated()
-
