@@ -64,8 +64,7 @@ class ImageRelated(object):
         matrix = np.zeros((length, width))
         for i in range(length):
             for j in range(width):
-                judgecondition = math.cos(angle) * (j - ((width + 1) / 2)) + math.sin(angle) * (
-                    i - ((length + 1) / 2)) - location
+                judgecondition = math.cos(angle) * (j - ((width + 1) / 2)) + math.sin(angle) * (i - ((length + 1) / 2)) - location
                 if judgecondition > 0:
                     matrix[j, i] = H
                 else:
@@ -74,23 +73,22 @@ class ImageRelated(object):
         return matrix
 
     @staticmethod
-    def mean_value(image=np.zeros((5, 5)), number=4):
+    def mean_value(image=np.zeros((5, 5)), meanimage=np.zeros((5, 5)), number=4, size=0):
         """
         calculate the mean value of the image patch
 
         """
         for i in range(number):
             for j in range(number):
-                temp_image = image[number*(j-1)+1:number*j, number*(i-1)+1:number*i]
+                temp_image = image[size*j+1:size*(j+1), size*i+1:size*(i+1)]
                 temp_meanvalue = temp_image.flatten(1)
-                temp_meanvalue.shape = (number*number, 1)
                 mean_value = np.mean(temp_meanvalue)
                 meanvalue = np.round(mean_value)
-                image[j, i] = meanvalue
+                meanimage[j, i] = meanvalue
                 pass
             pass
         pass
-        return image
+        return meanimage
 
     @staticmethod
     def judge_pixel(thres=0, pixel=0, image=[10, 10], n=0):
@@ -107,3 +105,4 @@ class ImageRelated(object):
 
 if __name__ == '__main__':
     a = ImageRelated()
+
