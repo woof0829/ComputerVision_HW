@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from ImageRelated import ImageRelated
 from DetectionRelated import DetectionRelated
 
-thresholdnum = 50
+thresholdnum = 500
 imagenum = 1000
 image = Image()
 imagepatch = image.imagegenerate()
